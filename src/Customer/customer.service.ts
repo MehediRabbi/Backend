@@ -73,7 +73,7 @@ export class customerService {
     //     return "Login successful";
     // }
 
-    async createProfile(data: customerdto): Promise<[CustomerEntity,CustomerDEntity]> {
+    async createProfile(data: customerdto): Promise<{message: string} > {
         const profile = await this.customerRepository.findOne({ where: { email:data.email } });
    
         if (profile !== null) {
@@ -94,7 +94,7 @@ export class customerService {
         customerdetails.city = data.city;
         customerdetails.phoneNumber = data.phoneNumber;
         customerdetails.dateOfBirth = data.dateOfBirth;
-        customerdetails.photo = data.photo;
+        customerdetails.photo= data.myfile;
         customerdetails.firstName = data.firstName;
         customerdetails.lastName = data.lastName;
         const savedCustomer = await this.customerRepository.save(customer);
@@ -105,8 +105,12 @@ export class customerService {
     customerdetails.customer = seller;
  
       const savedCustomerDetails = await this.customerDRepository.save(customerdetails);
+
+      return {
+        message: 'A 6 digit OTP has been sent to your email',
+      };
      
-      return [savedCustomer, savedCustomerDetails];
+      //return [savedCustomer, savedCustomerDetails];
     //    return this.customerRepository.save(customer);
     //     return this.customerDRepository.save(customerdetails);
       }
@@ -207,9 +211,25 @@ export class customerService {
         return this.productRepository.find({ where: { id: id } });
       }
 
+      async findAllProductsByEmail(email: string): Promise<ProductEntity[]> {
+        return this.productRepository
+          .createQueryBuilder('product')
+          .innerJoin('product.customer', 'customer')
+          .where('customer.email = :email', { email })
+          .getMany();
+      }
+
       async updateById(id: number, data: updatedto): Promise<CustomerDEntity> {
         await this.customerDRepository.update(id, data);
         return this.customerDRepository.findOneBy({ id});
+    }
+
+    async getCustomer(customerId: number): Promise<CustomerDEntity > {
+      
+        const customer = await this.customerDRepository.findOne({ where: {id: customerId } });
+        return customer;
+      
+    
     }
 
 

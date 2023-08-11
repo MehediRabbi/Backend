@@ -30,11 +30,12 @@ export class customerdto {
     @IsString({ message: "Enter city" })
     city: string;
 
-    @Matches(/^\d{10}$/, { message: "Enter a valid phone number" })
+    @Matches(/^\d{11}$/, { message: "Enter a valid phone number" })
     phoneNumber: string;
 
     dateOfBirth: string;
-    photo:string;
+
+    myfile:string;
 
     customerId: number;
 }

@@ -34,7 +34,7 @@ export class customerController {
         }
         // return this.adminService.signIn(data);
     }
-    @Post('login')//done
+    @Post('login')//done//
     @UsePipes(new ValidationPipe())
     async login(@Body() data:logindto, @Session() session ):Promise<any>
     {
@@ -77,7 +77,7 @@ export class customerController {
         
             console.log(imageobj.filename);
         
-            data.photo = imageobj.filename;
+            data.myfile = imageobj.filename;
         return this.customerService.createProfile(data);
 
        
@@ -116,7 +116,7 @@ export class customerController {
    
         
     @Put('/update/:id')//Done profile
-    @UseGuards(SessionGuard)
+    //@UseGuards(SessionGuard)
     @UsePipes(new ValidationPipe())
     updateById(@Param('id',ParseIntPipe) id: number, @Body() data: updatedto): object {
         return this.customerService.updateById(id, data);
@@ -124,7 +124,7 @@ export class customerController {
 
 
     @Delete('/delete_order/:id')//Done
-    @UseGuards(SessionGuard)
+    //@UseGuards(SessionGuard)
     deleteAccount(@Param('id',ParseIntPipe) id: number): any {
         return this.customerService.deleteAccount(id);
     }
@@ -147,6 +147,22 @@ export class customerController {
     findOrdersByLocation(@Param('id') id: number): Promise<ProductEntity[]> {
       return this.customerService.getOrderByid(id);
     }
+    @Get('/products/:email')
+  async findAllProductsByEmail(@Param('email') email: string): Promise<ProductEntity[]> {
+    return this.customerService.findAllProductsByEmail(email);
+  }
+
+//
+
+
+
+
+@Get('/get/:customerId')// customerdetaisla
+async getCustomer(@Param('customerId', ParseIntPipe) customerId: number): Promise<any> {
+    const customer = await this.customerService.getCustomer(customerId);
+    return customer;
+}
+
   
   
 }
