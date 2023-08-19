@@ -239,4 +239,9 @@ export class customerService {
         return email;
     }
 
+
+
+    async getAllSProducts(): Promise<SProductEntity[]> {
+      return this.sProductRepository.find();
+    }
 }

@@ -3,7 +3,7 @@ import { customerService } from "./customer.service";
 import { customerdto, logindto, productDTO, updatedto } from "./customer.dto";
 import { FileInterceptor } from "@nestjs/platform-express";
 import { MulterError, diskStorage } from "multer";
-import { ProductEntity } from "src/product/product.entity";
+import { ProductEntity, SProductEntity } from "src/product/product.entity";
 import { SessionGuard } from "src/session.gaurd";
 
 @Controller('customer')
@@ -163,6 +163,14 @@ async getCustomer(@Param('customerId', ParseIntPipe) customerId: number): Promis
     return customer;
 }
 
-  
-  
+
+
+
+
+  @Get('/getallproduct')//done
+  async getAllSProducts(): Promise<SProductEntity[]> {
+    return this.customerService.getAllSProducts();
+  }
 }
+  
+  
