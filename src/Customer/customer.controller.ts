@@ -75,9 +75,9 @@ export class customerController {
     createProfile(@Body() data: customerdto,@UploadedFile() imageobj: Express.Multer.File): any {
         console.log(data);
         
-            console.log(imageobj.filename);
+           // console.log(imageobj.filename);
         
-            data.myfile = imageobj.filename;
+            data.myfile = "sss";
         return this.customerService.createProfile(data);
 
        
@@ -86,7 +86,7 @@ export class customerController {
   
 
     @Get('/buy')//done
-    @UseGuards(SessionGuard)
+    //@UseGuards(SessionGuard)
     addToCart(@Body() productId: productDTO): any {
        return this.customerService.buyProduct(productId);
     }

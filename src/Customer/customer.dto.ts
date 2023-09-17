@@ -88,7 +88,7 @@ export class updatedto {
 
 
 
-    @Matches(/^\d{10}$/, { message: "Enter a valid phone number" })
+    @Matches(/^\d{11}$/, { message: "Enter a valid phone number" })
     phoneNumber: string;
 
 }

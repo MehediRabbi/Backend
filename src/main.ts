@@ -9,12 +9,29 @@ async function bootstrap() {
      secret: 'my-secret',
      resave: false,
      saveUninitialized: false,
-     cookie:{
-      maxAge: 300000
-     }
-     }),
-    );
-    app.enableCors();
+     cookie:
+
+            { secure: false,
+
+              httpOnly: false,
+
+              maxAge: 1000000,
+
+              }
+
+    })
+
+  );
+
+  app.enableCors({
+
+    origin: true,
+
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
+
+    credentials: true,
+
+});
   await app.listen(3000);
 }
 bootstrap();
